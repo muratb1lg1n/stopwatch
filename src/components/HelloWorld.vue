@@ -1,33 +1,24 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <div id="app">
+      <div class="container">
+        <span id="dakikalar">{{gosterdak}}</span>
+        <p>Dakika</p>  
+      </div>
+      <div class="container">
+        <span id="ciftnokta">:</span>
+      </div>
+      <div class="container">
+        <span id="saniyeler">{{gostersan}}</span>
+        <p>Saniye</p>
+      </div>
+      <div class="buton">
+        <button @click="tikzaman">bas</button>
+      </div>
+    </div>
   </div>
+  
 </template>
 
 <script>
@@ -35,12 +26,61 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+  data: () => ({
+    gosterdak: 0,
+    gostersan: 0,
+    alzaman: 0,
+    date: new Date(),
+  }),
+  mounted(){
+    this.krono();
+  },
+  methods: {
+    tikzaman(){
+      this.alzaman = this.date.getTime();    
+    },
+    krono(){
+      setInterval(() => {
+
+        const now = this.date.getTime();
+        console.log(now -this.alzaman); 
+
+      },1000)
+    }
+  },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+body{
+  background-image: url("https://i.pinimg.com/originals/e2/3d/9c/e23d9cb44dd465c75ac4455c81a07a50.jpg");
+  
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  
+}
+#app{
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  position: relative;
+  margin-top:  5%;
+
+  
+}
+p {
+  font-family: "Lucida Console", Monaco, monospace;
+  padding: 10px;
+  font-size: 45px;
+  
+}
+span {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 65px;
+}
 h3 {
   margin: 40px 0 0;
 }
