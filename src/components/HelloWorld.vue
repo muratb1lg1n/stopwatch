@@ -31,23 +31,35 @@ export default {
     gosterdak: 0,
     gostersan: 0,
     alzaman: 0,
-    date: new Date(),
   }),
-  mounted(){
-    this.krono();
+  computed:{
+    _san: () => 1000,
+    _dak() {return this._san * 60}
   },
+ 
   methods: {
     tikzaman(){
-      this.alzaman = this.date.getTime();    
+      const date = new Date();
+      const alzaman = date.getTime();
+      return alzaman;   
     },
     krono(){
+      const gel = this.tikzaman();
+
       setInterval(() => {
+        const date = new Date();
+        const now = date.getTime();
 
-        const now = this.date.getTime();
-        console.log(now -this.alzaman); 
+        const fark = now - gel;
 
+        this.gostersan = Math.floor(fark / this._san) % 60;
+        this.gosterdak = Math.floor(fark / this._dak);
       },1000)
     }
+  },
+   mounted(){
+
+    this.krono();
   },
 }
 </script>
