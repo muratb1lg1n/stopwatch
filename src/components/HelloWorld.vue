@@ -15,7 +15,7 @@
       </div>
       <div class="buton">
         <button v-if="bastus" @click="tikzaman()">bas</button>
-        <button v-if="!bastus" @click="durzaman()">dur</button>
+        <button v-if="!bastus" @click="tikzaman()">dur</button>
       </div>
     </div>
   </div>
@@ -29,41 +29,30 @@ export default {
     msg: String
   },
   data: () => ({
-    gosterdak: 0,
     gostersan: 0,
-    alzaman: 0,
+    gosterdak: 0,
     bastus: true,
   }),
-  computed:{
-    _san: () => 1000,
-    _dak() {return this._san * 60}
-  },
+
  
   methods: {
     tikzaman(){
-      const date = new Date();
-      this.alzaman = date.getTime();
-      const gel = this.alzaman;
-      
-      this.bastus = false;
+      if(this.bastus){
+        let totalsan = 0;
+        setInterval(() => {
+          totalsan++;
+          this.gostersan = totalsan % 60;
+          this.gosterdak = Math.floor(totalsan / 60)
 
-      setInterval(() => {
-        const date = new Date();
-        const now = date.getTime();
+        },1000);
+        this.bastus = false;
+      }
 
-        const fark = now - gel;
-
-        this.gostersan = Math.floor(fark / this._san) % 60;
-        this.gosterdak = Math.floor(fark / this._dak);
-      },1000)
 
     },
-    durzaman(){
-      console.log('hey');
-    }
+    
   },
-   mounted(){
-  },
+  
 }
 </script>
 
