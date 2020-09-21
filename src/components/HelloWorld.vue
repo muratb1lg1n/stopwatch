@@ -14,7 +14,8 @@
         <p>Saniye</p>
       </div>
       <div class="buton">
-        <button @click="tikzaman">bas</button>
+        <button v-if="bastus" @click="tikzaman()">bas</button>
+        <button v-if="!bastus" @click="durzaman()">dur</button>
       </div>
     </div>
   </div>
@@ -31,6 +32,7 @@ export default {
     gosterdak: 0,
     gostersan: 0,
     alzaman: 0,
+    bastus: true,
   }),
   computed:{
     _san: () => 1000,
@@ -40,11 +42,10 @@ export default {
   methods: {
     tikzaman(){
       const date = new Date();
-      const alzaman = date.getTime();
-      return alzaman;   
-    },
-    krono(){
-      const gel = this.tikzaman();
+      this.alzaman = date.getTime();
+      const gel = this.alzaman;
+      
+      this.bastus = false;
 
       setInterval(() => {
         const date = new Date();
@@ -55,11 +56,13 @@ export default {
         this.gostersan = Math.floor(fark / this._san) % 60;
         this.gosterdak = Math.floor(fark / this._dak);
       },1000)
+
+    },
+    durzaman(){
+      console.log('hey');
     }
   },
    mounted(){
-
-    this.krono();
   },
 }
 </script>
